@@ -1,28 +1,68 @@
-e-com-flow-engine/
-├── src/
-│   ├── api/                   # HTTP слой (маршруты, контроллеры, валидация)
-│   │   ├── routes/            # express.Router() для каждого модуля
-│   │   ├── controllers/       # Обработка запросов, вызов сервисов
-│   │   └── middlewares/       # Auth, ErrorHandler, Validation (Zod/Joi)
-│   ├── services/              # БИЗНЕС-ЛОГИКА (Ядро системы)
-│   │   ├── ScraperService.ts  # Логика обхода сайтов
-│   │   ├── OrderService.ts    # Синхронизация заказов между CRM и Почтой
-│   │   └── AIService.ts       # Анализ данных через OpenAI
-│   ├── providers/             # ВНЕШНИЕ ИНТЕГРАЦИИ (Adapters)
-│   │   ├── NovaPoshta.ts      # Класс-клиент для НП
-│   │   ├── SalesDrive.ts      # Класс-клиент для CRM
-│   │   └── OpenAI.ts          # Обертка над API OpenAI
-│   ├── models/                # СХЕМЫ ДАННЫХ
-│   │   ├── mongodb/           # Mongoose модели (логи, скрапинг)
-│   │   └── postgres/          # Prisma/TypeORM (финансы, заказы)
-│   ├── queue/                 # ФОНОВЫЕ ЗАДАЧИ (BullMQ/Bee-Queue)
-│   │   ├── workers/           # Обработчики очередей
-│   │   └── jobs/              # Определения задач
-│   ├── config/                # Конфигурация (env, constants)
-│   ├── shared/                # Types, Interfaces, Utils, Logger
-│   ├── app.ts                 # Инициализация Express
-│   └── server.ts              # Точка входа (Listen)
-├── tests/                     # Интеграционные тесты (Supertest + Jest)
-├── docker-compose.yml         # App + Redis + Mongo + Postgres
-├── .env.example
-└── README.md                  # Твоя витрина
+# E-com-Flow-Engine
+
+E-commerce workflow automation engine with queue-based order processing and API integrations.
+
+## Tech Stack
+
+- **Runtime:** Node.js 20, TypeScript
+- **Framework:** Express 5
+- **Databases:** MongoDB, PostgreSQL, Redis
+- **Queue:** BullMQ
+- **Integrations:** Nova Poshta, SalesDrive, OpenAI
+
+## Project Structure
+```
+src/
+├── api/                   # HTTP layer
+│   ├── routes/            # Express routers
+│   ├── controllers/       # Request handlers
+│   └── middlewares/       # Auth, validation, error handling
+├── services/              # Business logic
+├── providers/             # External API clients (Nova Poshta, SalesDrive, OpenAI)
+├── models/                # Data schemas
+│   ├── mongodb/           # Mongoose models
+│   └── postgres/          # Prisma/TypeORM entities
+├── queue/                 # Background jobs (BullMQ)
+│   ├── workers/           # Queue processors
+│   └── jobs/              # Job definitions
+├── config/                # Environment config
+├── shared/                # Types, utils, logger
+├── app.ts                 # Express app setup
+└── server.ts              # Entry point
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Docker & Docker Compose
+- Node.js 20+ (for local dev without Docker)
+
+### Run with Docker
+```bash
+cp .env.example .env
+docker compose up
+```
+
+### Run locally
+```bash
+npm install
+npm run dev
+```
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server with hot reload |
+| `npm run build` | Compile TypeScript |
+| `npm start` | Run production build |
+| `npm test` | Run tests |
+
+## Environment Variables
+
+See `.env.example` for required configuration.
+
+## License
+
+ISC
