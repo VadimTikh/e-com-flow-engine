@@ -1,6 +1,8 @@
 // src/providers/NovaPoshta.ts
 export default class NovaPoshtaClient {
-  constructor(private apiKey: string) {}
+  constructor(private apiKey: string) {
+    void this.apiKey;
+  }
 
   // Placeholder: track shipment by tracking number
   async track(ttn: string): Promise<{ ttn: string; status: string }> {
