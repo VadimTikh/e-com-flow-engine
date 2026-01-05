@@ -1,0 +1,46 @@
+{
+  "name": "e-com-flow-engine",
+  "version": "1.0.0",
+  "description": "E-commerce workflow automation engine with queue-based order processing and API integrations",
+  "main": "dist/server.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "tsc",
+    "prebuild": "npm run clean",
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn src/server.ts",
+    "test": "jest"
+  },
+  "keywords": [
+    "ecommerce",
+    "workflow",
+    "automation",
+    "queue",
+    "api"
+  ],
+  "author": "Vadim",
+  "license": "ISC",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^5.2.1",
+    "helmet": "^7.1.0",
+    "winston": "^3.11.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.24",
+    "jest": "^29.7.0",
+    "rimraf": "^5.0.5",
+    "ts-jest": "^29.1.2",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.3.3"
+  }
+}

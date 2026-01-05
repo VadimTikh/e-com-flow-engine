@@ -1,0 +1,43 @@
+# Node / TypeScript
+node_modules/
+dist/
+build/
+coverage/
+.nyc_output/
+.cache/
+.eslintcache
+*.tsbuildinfo
+
+# Environment files (keep example tracked)
+.env
+.env.*
+!.env.example
+
+# Logs & diagnostics
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+debug.log
+
+# Jest / testing
+.jest/
+jest-cache/
+
+# IDE & editors
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+
+# Docker overrides (optional local-only config)
+docker-compose.override.yml
