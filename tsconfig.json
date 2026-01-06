@@ -20,8 +20,10 @@
     "paths": {
       "@/*": ["./*"],
       "@config/*": ["./config/*"],
+      "@shared/*": ["./shared/*"],
       "@services/*": ["./services/*"],
       "@models/*": ["./models/*"],
+      "@providers/*": ["./providers/*"],
       "@api/*": ["./api/*"]
     }
   },

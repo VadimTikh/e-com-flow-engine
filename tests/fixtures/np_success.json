@@ -1,0 +1,34 @@
+{
+  "success": true,
+  "data": [
+    {
+      "Number": "20400048799000",
+      "StatusCode": "7",
+      "Status": "Прибув на відділення",
+      "DateCreated": "18-11-2021 11:52:42",
+      "FactualWeight": "3",
+      "VolumeWeight": "0.1",
+      "DocumentCost": "51",
+      "RecipientFullName": "Иванов Иван Иванович",
+      "ScheduledDeliveryDate": "19.11.2021 13:53:47",
+      "CitySender": "Київ",
+      "CityRecipient": "Київ",
+      "WarehouseRecipient": "Відділення №101 (до 15 кг), вул. Велика Васильківська, 143/2",
+      "WarehouseSender": "Відділення №178 (до 30 кг), просп. Оболонський, 35",
+      "PhoneRecipient": "380600000000",
+      "AnnouncedPrice": "50000",
+      "RedeliverySum": "0",
+      "ActualDeliveryDate": "",
+      "PossibilityCreateReturn": true,
+      "PossibilityCreateRefusal": true,
+      "PossibilityChangeEW": true,
+      "PossibilityCreateRedirecting": true,
+      "PossibilityTermExtensio": true,
+      "PossibilityChangeCash2Card": true,
+      "PossibilityChangeDeliveryIntervals": true
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "info": []
+}
