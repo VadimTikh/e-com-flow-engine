@@ -82,17 +82,36 @@ describe('NovaPoshta Registers Integration Test', () => {
     jest.setTimeout(30000); // Registers operations can be slow
 
     let createdRegistryRef: string | null = null;
+    let documentRef: string | null = null;
 
     beforeAll(async () => {
-        // Pre-cleanup: Try to remove the test TTN from any existing registry
-        // We don't provide a Ref, hoping it detaches from whatever registry it might be in.
+        // 1. Fetch internal Ref for the TTN (ScanSheet methods require internal UUID Ref, not TTN number)
         try {
-            await np.registers.removeDocuments({
-                DocumentRefs: [TEST_TTN_NOVAPOSHTA]
-            });
-            console.log('Pre-cleanup: Attempted to remove test TTN from existing registries');
+            const tracking = await np.tracking.fetchTracking([TEST_TTN_NOVAPOSHTA]);
+            const info = tracking.get(TEST_TTN_NOVAPOSHTA);
+            if (info && info.raw && info.raw.RefEW) {
+                documentRef = info.raw.RefEW;
+                console.log('Document internal Ref found:', documentRef);
+            } else {
+                console.warn('Could not find internal Ref for TTN. Registry tests might fail.');
+                // Fallback to TTN if Ref is not found (though API docs say Ref is required)
+                documentRef = TEST_TTN_NOVAPOSHTA;
+            }
         } catch (e) {
-            console.warn('Pre-cleanup failed (this is expected if TTN is not in any registry):', e);
+            console.error('Failed to fetch tracking info for TTN:', e);
+            documentRef = TEST_TTN_NOVAPOSHTA;
+        }
+
+        // 2. Pre-cleanup: Try to remove the document from any existing registry
+        if (documentRef) {
+            try {
+                await np.registers.removeDocuments({
+                    DocumentRefs: [documentRef]
+                });
+                console.log('Pre-cleanup: Attempted to remove test document from existing registries');
+            } catch (e) {
+                console.warn('Pre-cleanup failed (this is expected if document is not in any registry):', e);
+            }
         }
     });
 
@@ -109,8 +128,9 @@ describe('NovaPoshta Registers Integration Test', () => {
     });
 
     it('should create a new registry with a document', async () => {
+        if (!documentRef) return;
         const response = await np.registers.insertDocuments({
-            DocumentRefs: [TEST_TTN_NOVAPOSHTA]
+            DocumentRefs: [documentRef]
         });
 
         // If success is false, it might be because the TTN is invalid or already in a registry
@@ -121,6 +141,7 @@ describe('NovaPoshta Registers Integration Test', () => {
         // We expect success OR a specific logical error that we can't easily avoid in a generic test
         // But for a "green" path test, we expect success.
         expect(response.success).toBe(true);
+        console.log('response:', JSON.stringify(response, null, 2));
         expect(response.data.length).toBeGreaterThan(0);
 
         const result = response.data[0] as ScanSheetResponse;
@@ -157,17 +178,17 @@ describe('NovaPoshta Registers Integration Test', () => {
     });
 
     it('should remove the document from the registry', async () => {
-        if (!createdRegistryRef) return;
+        if (!createdRegistryRef || !documentRef) return;
 
         const response = await np.registers.removeDocuments({
-            DocumentRefs: [TEST_TTN_NOVAPOSHTA],
+            DocumentRefs: [documentRef],
             Ref: createdRegistryRef
         });
 
         expect(response.success).toBe(true);
         // Verify document is in the success list
         const removedDocs = response.data[0].DocumentRefs.Success;
-        const isRemoved = removedDocs.some(d => d.Ref === TEST_TTN_NOVAPOSHTA || d.Number === TEST_TTN_NOVAPOSHTA);
+        const isRemoved = removedDocs.some(d => d.Ref === documentRef || d.Number === TEST_TTN_NOVAPOSHTA);
         
         expect(isRemoved).toBe(true);
         
