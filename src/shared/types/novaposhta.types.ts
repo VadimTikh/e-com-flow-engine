@@ -260,3 +260,78 @@ export interface FetchTrackingResponse {
 export interface NovaPoshtaClientOptions {
     apiUrl?: string;
 }
+
+// ============================================================================
+// ScanSheet (Registers) Interfaces
+// ============================================================================
+
+export interface ScanSheetInsertDocumentsRequest {
+    DocumentRefs: string[];
+    Ref?: string;
+    Date?: string; // DD.MM.YYYY
+}
+
+export interface ScanSheetResponse {
+    Description: string;
+    Ref: string;
+    Number: string;
+    Date: string;
+    Errors: string[];
+    Warnings: string[];
+    Data: unknown;
+    Success: Array<{
+        Ref: string;
+        Number: string;
+    }>;
+}
+
+export interface GetScanSheetRequest {
+    Ref: string;
+    CounterpartyRef?: string;
+}
+
+export interface ScanSheetInfo {
+    Ref: string;
+    Number: string;
+    DateTime: string;
+    Count: string;
+    CitySenderRef: string;
+    CitySender: string;
+    SenderAddressRef: string;
+    SenderAddress: string;
+    SenderRef: string;
+    Sender: string;
+}
+
+export interface ScanSheetListItem {
+    Ref: string;
+    Number: string;
+    DateTime: string;
+    Printed: string;
+}
+
+export interface DeleteScanSheetRequest {
+    ScanSheetRefs: string[];
+}
+
+export interface ScanSheetDeleteInfo {
+    Ref: string;
+    Number: string;
+    Error: string;
+}
+
+export interface RemoveDocumentsRequest {
+    DocumentRefs: string[];
+    Ref?: string;
+}
+
+export interface RemoveDocumentsResponse {
+    DocumentRefs: {
+        Errors: string[];
+        Success: Array<{
+            Ref: string;
+            Number: string;
+            Document: string;
+        }>;
+    };
+}
