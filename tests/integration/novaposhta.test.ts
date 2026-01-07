@@ -154,7 +154,9 @@ describe('NovaPoshta Registers Integration Test', () => {
         expect(response.success).toBe(true);
         // Verify document is in the success list
         const removedDocs = response.data[0].DocumentRefs.Success;
-        const isRemoved = removedDocs.some(d => d.Ref === TEST_TTN || d.Number === TEST_TTN); // API might return Ref or Number matching our input
+        const isRemoved = removedDocs.some(d => d.Ref === TEST_TTN || d.Number === TEST_TTN);
+        
+        expect(isRemoved).toBe(true);
         
         // Note: The API response for removeDocuments is complex, 
         // sometimes it returns internal Refs instead of the TTN string if we passed a TTN string.
