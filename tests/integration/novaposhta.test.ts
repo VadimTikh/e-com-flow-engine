@@ -83,6 +83,19 @@ describe('NovaPoshta Registers Integration Test', () => {
 
     let createdRegistryRef: string | null = null;
 
+    beforeAll(async () => {
+        // Pre-cleanup: Try to remove the test TTN from any existing registry
+        // We don't provide a Ref, hoping it detaches from whatever registry it might be in.
+        try {
+            await np.registers.removeDocuments({
+                DocumentRefs: [TEST_TTN_NOVAPOSHTA]
+            });
+            console.log('Pre-cleanup: Attempted to remove test TTN from existing registries');
+        } catch (e) {
+            console.warn('Pre-cleanup failed (this is expected if TTN is not in any registry):', e);
+        }
+    });
+
     afterAll(async () => {
         // Cleanup: Ensure registry is deleted even if test fails
         if (createdRegistryRef) {
