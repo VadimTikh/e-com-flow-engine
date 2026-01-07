@@ -1,12 +1,11 @@
 import { NovaPoshtaBase } from './client';
-import { chunkArray, parseSafeFloat } from '../../shared/utils';
+import { chunkArray, parseSafeFloat } from '@shared/utils';
 import {
     TrackingResult,
     TrackingDocumentStatus,
     TrackingStatusCode,
     TRACKING_STATUS_DESCRIPTIONS
 } from '@/shared/types';
-// Предполагаем, что схема создана в файле schemas.ts
 import { TrackingStatusSchema } from './schemas';
 
 export class NovaPoshtaTracking extends NovaPoshtaBase {
