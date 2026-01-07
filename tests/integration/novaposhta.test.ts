@@ -68,11 +68,11 @@ describe('NovaPoshta Offline Integration Test', () => {
 });
 
 const API_KEY = process.env.NOVA_POSHTA_API_KEY || '';
-const TEST_TTN = process.env.TEST_TTN || '';
+const TEST_TTN_NOVAPOSHTA_NOVAPOSHTA = process.env.TEST_TTN_NOVAPOSHTA_NOVAPOSHTA || '';
 
 describe('NovaPoshta Registers Integration Test', () => {
-    if (!API_KEY || !TEST_TTN) {
-        console.warn('Skipping Registers integration tests: NOVA_POSHTA_API_KEY or TEST_TTN not found');
+    if (!API_KEY || !TEST_TTN_NOVAPOSHTA_NOVAPOSHTA) {
+        console.warn('Skipping Registers integration tests: NOVA_POSHTA_API_KEY or TEST_TTN_NOVAPOSHTA_NOVAPOSHTA not found');
         it.skip('should pass', () => {});
         return;
     }
@@ -97,7 +97,7 @@ describe('NovaPoshta Registers Integration Test', () => {
 
     it('should create a new registry with a document', async () => {
         const response = await np.registers.insertDocuments({
-            DocumentRefs: [TEST_TTN]
+            DocumentRefs: [TEST_TTN_NOVAPOSHTA]
         });
 
         // If success is false, it might be because the TTN is invalid or already in a registry
@@ -147,14 +147,14 @@ describe('NovaPoshta Registers Integration Test', () => {
         if (!createdRegistryRef) return;
 
         const response = await np.registers.removeDocuments({
-            DocumentRefs: [TEST_TTN],
+            DocumentRefs: [TEST_TTN_NOVAPOSHTA],
             Ref: createdRegistryRef
         });
 
         expect(response.success).toBe(true);
         // Verify document is in the success list
         const removedDocs = response.data[0].DocumentRefs.Success;
-        const isRemoved = removedDocs.some(d => d.Ref === TEST_TTN || d.Number === TEST_TTN);
+        const isRemoved = removedDocs.some(d => d.Ref === TEST_TTN_NOVAPOSHTA || d.Number === TEST_TTN_NOVAPOSHTA);
         
         expect(isRemoved).toBe(true);
         
