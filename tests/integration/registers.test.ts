@@ -65,6 +65,20 @@ describe('NovaPoshta Registers Integration Test', () => {
         expect(response.data[0].Ref).toBe(createdRegistryRef);
     });
 
+    it('should retrieve the list of registries', async () => {
+        if (!createdRegistryRef) return;
+
+        const response = await np.registers.getScanSheetList();
+
+        expect(response.success).toBe(true);
+        expect(Array.isArray(response.data)).toBe(true);
+        
+        // Ensure our created registry is in the list
+        const found = response.data.find(r => r.Ref === createdRegistryRef);
+        expect(found).toBeDefined();
+        expect(found?.Ref).toBe(createdRegistryRef);
+    });
+
     it('should remove the document from the registry', async () => {
         if (!createdRegistryRef) return;
 
