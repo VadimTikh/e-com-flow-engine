@@ -1,4 +1,4 @@
-ARG NODE_VERSION=20-alpine
+ARG NODE_VERSION=22-alpine
 
 # Build deps (includes devDeps for build)
 FROM node:${NODE_VERSION} AS build_deps
