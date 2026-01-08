@@ -3,7 +3,12 @@ import { Router } from 'express';
 
 const router = Router();
 
-// TODO: register module routers, e.g.
-// router.use('/orders', ordersRouter);
+router.get('/development', (_req, res) => {
+  res.status(200).json({
+    message: "In development",
+    joke: "Why do programmers prefer dark mode? Because light attracts bugs.",
+    note: "If it works, don't touch it."
+  });
+});
 
 export default router;
